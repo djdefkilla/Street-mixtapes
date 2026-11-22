@@ -2,81 +2,79 @@
   "use strict";
   const genreButtons = [...document.querySelectorAll(".genre")];
   const mixes = [...document.querySelectorAll(".mix")];
+  genreButtons.forEach((button) => button.addEventListener("click", () => {
+    const genre = button.dataset.genre || "all";
+    genreButtons.forEach((item) => item.classList.toggle("active", item === button));
+    mixes.forEach((mix) => { mix.hidden = genre !== "all" && mix.dataset.category !== genre; });
+  }));
 
-  genreButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const genre = button.dataset.genre || "all";
-      genreButtons.forEach((item) => item.classList.toggle("active", item === button));
-      mixes.forEach((mix) => {
-        mix.hidden = genre !== "all" && mix.dataset.category !== genre;
-      });
-    });
-  });
-
+  // Seules les pistes publiées par l'administrateur du site sont listées ici.
+  // Les visiteurs ne disposent d'aucun champ d'ajout ou d'envoi de fichiers.
+  const playlist = [];
   const audio = document.getElementById("audio");
-  const fileInput = document.getElementById("audioFile");
-  const playButton = document.getElementById("play");
+  const play = document.getElementById("play");
+  const prev = document.getElementById("prev");
+  const next = document.getElementById("next");
   const track = document.getElementById("track");
+  const meta = document.getElementById("trackMeta");
   const status = document.getElementById("status");
-  const equalizer = document.querySelector(".equalizer");
-  if (!audio || !fileInput || !playButton || !track || !status || !equalizer) return;
+  const count = document.getElementById("playlistCount");
+  const progress = document.getElementById("progress");
+  const currentTime = document.getElementById("currentTime");
+  const duration = document.getElementById("duration");
+  const equalizer = document.getElementById("equalizer");
+  const cassette = document.querySelector(".cassette-shell");
+  if (!audio || !play) return;
 
-  let currentUrl = "";
-  const setPlaying = (playing) => {
-    playButton.textContent = playing ? "Ⅱ" : "▶";
-    playButton.setAttribute("aria-label", playing ? "Mettre en pause" : "Lire");
-    equalizer.classList.toggle("playing", playing);
+  let index = 0;
+  const time = (value) => {
+    if (!Number.isFinite(value)) return "00:00";
+    const m = Math.floor(value / 60);
+    const s = Math.floor(value % 60);
+    return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
   };
-
-  fileInput.addEventListener("change", () => {
-    const file = fileInput.files && fileInput.files[0];
-    if (!file) return;
-    if (file.type && !file.type.startsWith("audio/")) {
-      status.textContent = "FORMAT NON AUDIO — CHOISIS UN AUTRE FICHIER";
-      fileInput.value = "";
-      return;
-    }
-    audio.pause();
-    if (currentUrl) URL.revokeObjectURL(currentUrl);
-    currentUrl = URL.createObjectURL(file);
-    audio.src = currentUrl;
-    track.textContent = file.name.replace(/\.[^.]+$/, "");
-    status.textContent = "FICHIER PRÊT — APPUIE SUR PLAY";
-    setPlaying(false);
+  const setActive = (playing) => {
+    play.textContent = playing ? "Ⅱ" : "▶";
+    play.setAttribute("aria-label", playing ? "Mettre en pause" : "Lire");
+    equalizer?.classList.toggle("playing", playing);
+    cassette?.classList.toggle("spinning", playing);
+  };
+  const loadTrack = (n, autoplay) => {
+    if (!playlist.length) return;
+    index = (n + playlist.length) % playlist.length;
+    const item = playlist[index];
+    audio.src = item.src;
+    track.textContent = item.title;
+    meta.textContent = item.meta || "DJ DEFKILLA • STREET MIXTAPE";
+    status.textContent = "MIXTAPE "+String(index+1).padStart(2,"0")+" / "+String(playlist.length).padStart(2,"0");
+    progress.value = 0;
+    if (autoplay) audio.play().catch(() => { status.textContent = "APPUYER SUR PLAY POUR ÉCOUTER"; });
+  };
+  count.textContent = playlist.length+" MIXTAPE"+(playlist.length>1?"S":"")+" DISPONIBLE"+(playlist.length>1?"S":"");
+  if (playlist.length) {
+    [play,prev,next,progress].forEach((el) => { el.disabled = false; });
+    loadTrack(0,false);
+  } else {
+    status.textContent = "SÉLECTION DJ DEFKILLA — BIENTÔT DISPONIBLE";
+    track.textContent = "LES MIXTAPES ARRIVENT";
+    meta.textContent = "Le lecteur sera alimenté par DJ DEFKILLA";
+  }
+  play.addEventListener("click", () => {
+    if (!playlist.length) return;
+    if (audio.paused) audio.play().catch(() => { status.textContent = "LECTURE IMPOSSIBLE"; });
+    else audio.pause();
   });
-
-  playButton.addEventListener("click", async () => {
-    if (!audio.src) {
-      status.textContent = "CHARGE UN FICHIER AUDIO D'ABORD";
-      fileInput.click();
-      return;
-    }
-    if (audio.paused) {
-      try {
-        await audio.play();
-      } catch (_) {
-        status.textContent = "LECTURE IMPOSSIBLE — ESSAIE UN AUTRE FICHIER";
-      }
-    } else {
-      audio.pause();
-    }
+  prev.addEventListener("click", () => loadTrack(index-1,true));
+  next.addEventListener("click", () => loadTrack(index+1,true));
+  audio.addEventListener("play", () => setActive(true));
+  audio.addEventListener("pause", () => setActive(false));
+  audio.addEventListener("ended", () => loadTrack(index+1,true));
+  audio.addEventListener("loadedmetadata", () => { duration.textContent=time(audio.duration); });
+  audio.addEventListener("timeupdate", () => {
+    currentTime.textContent=time(audio.currentTime);
+    if (Number.isFinite(audio.duration) && audio.duration>0) progress.value=Math.round(audio.currentTime/audio.duration*1000);
   });
-
-  audio.addEventListener("play", () => {
-    setPlaying(true);
-    status.textContent = "NOW PLAYING";
-  });
-  audio.addEventListener("pause", () => setPlaying(false));
-  audio.addEventListener("ended", () => {
-    setPlaying(false);
-    status.textContent = "MIX TERMINÉ";
-  });
-  audio.addEventListener("error", () => {
-    setPlaying(false);
-    status.textContent = "FICHIER ILLISIBLE — ESSAIE UN AUTRE FORMAT";
-  });
-  window.addEventListener("pagehide", () => {
-    audio.pause();
-    if (currentUrl) URL.revokeObjectURL(currentUrl);
+  progress.addEventListener("input", () => {
+    if (Number.isFinite(audio.duration)) audio.currentTime=(Number(progress.value)/1000)*audio.duration;
   });
 })();
