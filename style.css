@@ -1,0 +1,129 @@
+ :root {
+  --red: #f02b24;
+  --paper: #e8e2d6;
+  --muted: #8b8881;
+  --black: #101010;
+  --panel: #191919;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--black); color: var(--paper);
+  font-family: 'Space Mono', monospace;
+  background-image: radial-gradient(#ffffff0b 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+a { color: inherit; text-decoration: none; }
+.topline { height: 5px; background: var(--red); }
+header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 6vw; border-bottom: 1px solid #ffffff22; gap: 20px;
+}
+.brand { font: 900 25px 'Barlow Condensed', sans-serif; letter-spacing: 2px; }
+.brand span { color: var(--red); }
+nav { display: flex; gap: 24px; font-size: 10px; text-transform: uppercase; color: #c6c0b6; }
+nav a:hover { color: var(--red); }
+.hero { padding: 68px 6vw 50px; position: relative; overflow: hidden; }
+.eyebrow { color: var(--red); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; }
+.hero h1 {
+  font: 900 clamp(64px, 12vw, 150px)/.78 'Barlow Condensed', sans-serif;
+  letter-spacing: -4px; margin: 24px 0 18px; text-transform: uppercase;
+  text-shadow: 5px 5px 0 #7b1714;
+}
+.hero h1 em { font-style: normal; color: var(--red); }
+.hero-bottom { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+.hero p { font-size: 11px; line-height: 1.8; color: #aaa49a; max-width: 420px; }
+.stamp {
+  border: 2px solid var(--red); color: var(--red); padding: 9px 13px;
+  transform: rotate(-7deg); font: 800 17px 'Barlow Condensed', sans-serif; letter-spacing: 2px;
+}
+.tape-wrap { padding: 0 6vw 65px; }
+.tape {
+  background: linear-gradient(145deg, #343434, #171717 60%); border: 1px solid #555;
+  border-radius: 8px; padding: 24px; box-shadow: 0 25px 60px #000; position: relative;
+  max-width: 980px; margin: auto;
+}
+.tape:before, .tape:after {
+  content: ''; position: absolute; width: 9px; height: 9px; border-radius: 50%;
+  background: #090909; border: 1px solid #666; top: 12px;
+}
+.tape:before { left: 12px; } .tape:after { right: 12px; }
+.tape-label {
+  background: var(--paper); color: #171717; padding: 20px 5%;
+  transform: rotate(-.5deg); box-shadow: 3px 5px 0 #000; position: relative;
+}
+.tape-label:after {
+  content: 'SIDE A / STREET SOUND'; position: absolute; right: 18px; top: 12px;
+  font-size: 8px; color: #777;
+}
+.tape-title {
+  font: 900 clamp(30px, 6vw, 64px)/.9 'Barlow Condensed', sans-serif;
+  text-transform: uppercase; margin: 15px 0 8px;
+}
+.tape-title span { color: var(--red); }
+.reels { display: flex; justify-content: center; align-items: center; gap: clamp(20px, 8vw, 90px); padding: 22px; }
+.reel {
+  width: clamp(74px, 13vw, 125px); aspect-ratio: 1; border: 9px solid #777;
+  border-radius: 50%; background: repeating-conic-gradient(#292929 0 12deg, #555 13deg 18deg);
+  display: grid; place-items: center; animation: spin 7s linear infinite;
+}
+.reel:after { content: ''; width: 35%; aspect-ratio: 1; background: #aaa; border: 8px dotted #333; border-radius: 50%; }
+.reel:nth-child(2) { animation-direction: reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.tape-window { height: 8px; background: #080808; border-radius: 8px; margin: 0 12%; box-shadow: inset 0 2px 4px #000; }
+.section { padding: 45px 6vw; }
+.section-head {
+  display: flex; align-items: end; justify-content: space-between;
+  border-bottom: 1px solid #ffffff30; padding-bottom: 14px; margin-bottom: 22px;
+}
+.section h2 { font: 800 38px 'Barlow Condensed', sans-serif; text-transform: uppercase; margin: 0; }
+.section h2 span { color: var(--red); }
+.tiny { font-size: 9px; color: var(--muted); }
+.genres { display: flex; flex-wrap: wrap; gap: 9px; }
+.genre {
+  border: 1px solid #555; padding: 11px 16px; font-size: 10px; text-transform: uppercase;
+  background: #171717; color: #ccc; cursor: pointer; font-family: inherit;
+}
+.genre:hover, .genre.active { background: var(--red); border-color: var(--red); color: white; }
+.mix-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.mix {
+  background: var(--panel); border: 1px solid #333; padding: 18px;
+  min-height: 150px; position: relative; overflow: hidden;
+}
+.mix:after {
+  content: 'SM'; position: absolute; right: -8px; bottom: -32px;
+  font: 900 100px 'Barlow Condensed', sans-serif; color: #ffffff08;
+}
+.mix small { color: var(--red); font-size: 9px; }
+.mix h3 { font: 800 27px 'Barlow Condensed', sans-serif; margin: 18px 0 7px; text-transform: uppercase; }
+.mix p { font-size: 9px; color: #aaa; }
+.player {
+  display: flex; align-items: center; gap: 14px; background: #242424;
+  border: 1px solid #444; padding: 14px; margin-top: 22px;
+}
+.play { background: var(--red); border: 0; color: white; width: 42px; height: 42px; font-size: 17px; cursor: pointer; }
+.track-info { flex: 1; min-width: 0; }
+.player strong { font: 700 16px 'Barlow Condensed', sans-serif; text-transform: uppercase; }
+.player small { display: block; color: #aaa; font-size: 9px; margin-top: 4px; }
+.file-label { white-space: nowrap; }
+#audioFile { max-width: 145px; color: #aaa; font: 9px 'Space Mono', monospace; }
+.upload-note { font-size: 9px; color: #888; line-height: 1.8; margin-top: 15px; }
+footer {
+  border-top: 1px solid #ffffff22; padding: 30px 6vw; display: flex;
+  justify-content: space-between; gap: 20px; font-size: 9px; color: #888; text-transform: uppercase;
+}
+footer b { color: var(--red); }
+[hidden] { display: none !important; }
+@media (max-width: 650px) {
+  header { padding: 18px 5vw; align-items: flex-start; }
+  nav { gap: 12px; flex-wrap: wrap; justify-content: end; font-size: 9px; }
+  .hero { padding: 55px 5vw 38px; }
+  .hero-bottom { align-items: start; flex-direction: column; }
+  .tape-wrap, .section { padding-left: 5vw; padding-right: 5vw; }
+  .tape { padding: 16px; }
+  .mix-grid { grid-template-columns: 1fr; }
+  .section-head { align-items: start; gap: 10px; flex-direction: column; }
+  .player { flex-wrap: wrap; }
+  #audioFile { max-width: 100%; }
+  footer { flex-direction: column; }
+}
