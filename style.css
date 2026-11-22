@@ -331,3 +331,51 @@ footer{border-top:2px solid var(--pink);background:linear-gradient(90deg,#080610
 @media(prefers-reduced-motion:reduce){
  .hero-smoke{animation:none!important;opacity:.22;transform:none}
 }
+
+
+/* ===== VISIBLE MOVING SMOKE — HERO BANNER ===== */
+.hero{isolation:isolate}
+.hero-art{z-index:-3}
+.hero-vignette{z-index:1;background:
+  linear-gradient(90deg,#080610a8 0%,#08061055 34%,#08061008 72%,#08061020),
+  linear-gradient(0deg,#080610 0%,transparent 18%,transparent 84%,#08061035)}
+.hero-smoke{
+  z-index:0;inset:-8% -10% 0;opacity:.72;filter:blur(19px);
+  mix-blend-mode:screen;pointer-events:none;will-change:transform;
+  background:
+    radial-gradient(ellipse 34% 23% at 8% 72%,#e8f4ffb8 0%,#c7d7ff70 27%,#c7d7ff00 72%),
+    radial-gradient(ellipse 38% 25% at 31% 58%,#d9e8ff9c 0%,#b9b9ff58 31%,#d9c8ff00 73%),
+    radial-gradient(ellipse 35% 26% at 59% 73%,#c5fbff9c 0%,#9adfff55 32%,#c5fbff00 75%),
+    radial-gradient(ellipse 37% 24% at 91% 55%,#ffd6f2a8 0%,#f4b9ff55 30%,#ffd6f200 75%);
+  background-size:145% 135%;background-position:0% 50%;
+}
+.smoke-one{animation:smokeRollOne 13s ease-in-out infinite alternate}
+.smoke-two{
+  opacity:.56;filter:blur(29px);transform:scale(1.06);
+  background:
+    radial-gradient(ellipse 31% 25% at 18% 40%,#00fff0a0 0%,#00cfff55 34%,transparent 74%),
+    radial-gradient(ellipse 36% 26% at 53% 51%,#ff20b9a0 0%,#bd40ff55 35%,transparent 75%),
+    radial-gradient(ellipse 32% 24% at 85% 35%,#baff55a0 0%,#eaff3d44 35%,transparent 76%);
+  background-size:155% 145%;background-position:100% 40%;
+  animation:smokeRollTwo 17s ease-in-out infinite alternate;
+}
+@keyframes smokeRollOne{
+  0%{transform:translate3d(-5%,3%,0) scale(1) rotate(-3deg);background-position:0% 60%;opacity:.42}
+  50%{transform:translate3d(2%,-3%,0) scale(1.1) rotate(2deg);background-position:55% 35%;opacity:.82}
+  100%{transform:translate3d(-2%,-6%,0) scale(1.16) rotate(-2deg);background-position:100% 60%;opacity:.56}
+}
+@keyframes smokeRollTwo{
+  0%{transform:translate3d(4%,4%,0) scale(1.02) rotate(5deg);background-position:100% 30%;opacity:.3}
+  100%{transform:translate3d(-5%,-4%,0) scale(1.15) rotate(-5deg);background-position:0% 75%;opacity:.68}
+}
+.hero-topline,.hero-copy,.hero-side-note,.hero-bottom{z-index:2}
+@media(max-width:620px){
+  .hero-art{height:51vw;background-size:100% auto}
+  .hero-vignette{height:51vw}
+  .hero-smoke{inset:0 0 auto;height:51vw;filter:blur(13px);opacity:.78}
+  .smoke-two{filter:blur(19px);opacity:.62}
+  .hero-topline{margin-top:calc(51vw + 5px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-smoke{animation:none!important;opacity:.45}
+}
