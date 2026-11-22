@@ -4,10 +4,11 @@ const mixCards = [...document.querySelectorAll('.mix')];
 genreButtons.forEach((button) => {
   button.addEventListener('click', () => {
     genreButtons.forEach((item) => item.classList.toggle('active', item === button));
+    const genre = button.dataset.genre;
     mixCards.forEach((card) => {
-      card.hidden = button.dataset.genre !== 'all' &&
-        card.dataset.category !== button.dataset.genre;
+      card.hidden = genre !== 'all' && card.dataset.category !== genre;
     });
+    document.querySelector('#mixes').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
@@ -16,40 +17,51 @@ const fileInput = document.querySelector('#audioFile');
 const playButton = document.querySelector('#play');
 const trackName = document.querySelector('#track');
 const status = document.querySelector('#status');
+const equalizer = document.querySelector('.equalizer');
+
+function setPlaying(playing) {
+  playButton.innerHTML = playing ? '<span>Ⅱ</span>' : '<span>▶</span>';
+  equalizer.classList.toggle('playing', playing);
+}
 
 fileInput.addEventListener('change', () => {
   const file = fileInput.files && fileInput.files[0];
   if (!file) return;
-
   if (audio.src) URL.revokeObjectURL(audio.src);
   audio.src = URL.createObjectURL(file);
   trackName.textContent = file.name;
-  status.textContent = 'LOCAL FILE LOADED';
-  playButton.textContent = '▶';
+  status.textContent = 'LOCAL FILE LOADED — READY TO PLAY';
+  setPlaying(false);
 });
 
 playButton.addEventListener('click', async () => {
   if (!audio.src) {
-    status.textContent = 'LOAD AN AUDIO FILE FIRST';
+    status.textContent = 'CHARGE UN FICHIER AUDIO POUR COMMENCER';
+    document.querySelector('.load-audio').focus();
     return;
   }
-
   if (audio.paused) {
     try {
       await audio.play();
-      playButton.textContent = 'Ⅱ';
-      status.textContent = 'NOW PLAYING';
+      setPlaying(true);
+      status.textContent = 'NOW PLAYING — FEEL THE VIBE';
+      document.body.classList.add('sound-on');
     } catch (error) {
-      status.textContent = 'PLAYBACK UNAVAILABLE';
+      status.textContent = 'LECTURE IMPOSSIBLE — ESSAIE UN AUTRE FICHIER';
     }
   } else {
     audio.pause();
-    playButton.textContent = '▶';
-    status.textContent = 'PAUSED';
+    setPlaying(false);
+    status.textContent = 'PAUSED — TAKE A BREATH';
+    document.body.classList.remove('sound-on');
   }
 });
 
 audio.addEventListener('ended', () => {
-  playButton.textContent = '▶';
-  status.textContent = 'PLAYBACK FINISHED';
+  setPlaying(false);
+  status.textContent = 'TAPE FINISHED — REWIND THE VIBE';
+  document.body.classList.remove('sound-on');
+});
+audio.addEventListener('pause', () => {
+  if (audio.ended) setPlaying(false);
 });
