@@ -494,3 +494,42 @@ footer{border-top:2px solid var(--pink);background:linear-gradient(90deg,#080610
  .cassette-shell.idle-motion,.cassette-shell.spinning{animation:none!important}
  .cassette-shell.idle-motion .reel i,.cassette-shell.spinning .reel i{animation:none!important}
 }
+
+
+/* REFINEMENT: stronger VHS interference, stationary cassette body, rotating reels only */
+.hero::before{
+  opacity:.72!important;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 1px,#e7ffff65 2px,transparent 3px 5px),
+    linear-gradient(90deg,#00f5ed38 0%,transparent 18%,#ff18a83b 48%,transparent 72%,#00f5ed38 100%)!important;
+  background-size:100% 6px,220% 100%!important;
+  animation:bannerVhsLines 1.35s linear infinite!important;
+}
+.hero::after{
+  opacity:.88!important;
+  background:
+    linear-gradient(180deg,transparent 0 9%,#00f5edbd 9.2%,#fff 9.6%,transparent 10.5% 34%,#ff18a8c9 34.2%,#fff 34.7%,transparent 36% 69%,#00f5edaa 69.2%,transparent 70%),
+    repeating-linear-gradient(0deg,transparent 0 17px,#ffffff35 18px,transparent 20px)!important;
+  animation:bannerVhsBurst 2.2s steps(1,end) infinite!important;
+}
+/* Keep the cassette shell completely still: only the two reel hubs rotate */
+.cassette-shell,
+.cassette-shell.idle-motion,
+.cassette-shell.spinning{
+  animation:none!important;
+  transform:none!important;
+}
+.cassette-shell .reel i,
+.cassette-shell.idle-motion .reel i,
+.cassette-shell.spinning .reel i{
+  animation:reelSpin 2.2s linear infinite!important;
+  animation-play-state:running!important;
+}
+.cassette-shell.spinning .reel i{animation-duration:1.45s!important}
+@media(max-width:620px){
+  .hero::before{opacity:.64!important}
+  .hero::after{opacity:.76!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .cassette-shell .reel i{animation:none!important}
+}
