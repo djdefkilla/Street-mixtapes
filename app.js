@@ -92,4 +92,29 @@
       audio.currentTime = Number(progress.value) / 1000 * audio.duration;
     }
   });
+
+  // Sélecteur de langue : les libellés de navigation et le message défilant suivent la langue choisie.
+  const languageSelect = document.getElementById("languageSelect");
+  const translations = {
+    fr: { welcome: "BIENVENUE SUR L’APPLICATION", nav: ["ACCUEIL","LES SONS","MIXTAPES","PLAYER","CULTURE"], cta:"ENTRER DANS LE SON ↗", heroDesc:"LE SON BRUT. LA CULTURE SANS FRONTIÈRES.", heroButton:"EXPLORER LES MIXTAPES", marquee:"HIP-HOP • DANCEHALL • REGGAETON • R&B • AFROBEATS" },
+    it: { welcome: "BENVENUTI NELL’APPLICAZIONE", nav: ["HOME","I SUONI","MIXTAPE","PLAYER","CULTURA"], cta:"ENTRA NEL SUONO ↗", heroDesc:"IL SUONO PURO. CULTURA SENZA CONFINI.", heroButton:"ESPLORA LE MIXTAPE", marquee:"HIP-HOP • DANCEHALL • REGGAETON • R&B • AFROBEATS" },
+    es: { welcome: "BIENVENIDO A LA APLICACIÓN", nav: ["INICIO","LOS SONIDOS","MIXTAPES","REPRODUCTOR","CULTURA"], cta:"ENTRA EN EL SONIDO ↗", heroDesc:"SONIDO PURO. CULTURA SIN FRONTERAS.", heroButton:"EXPLORAR MIXTAPES", marquee:"HIP-HOP • DANCEHALL • REGGAETON • R&B • AFROBEATS" },
+    pt: { welcome: "BEM-VINDO À APLICAÇÃO", nav: ["INÍCIO","OS SONS","MIXTAPES","PLAYER","CULTURA"], cta:"ENTRE NO SOM ↗", heroDesc:"SOM PURO. CULTURA SEM FRONTEIRAS.", heroButton:"EXPLORAR MIXTAPES", marquee:"HIP-HOP • DANCEHALL • REGGAETON • R&B • AFROBEATS" },
+    en: { welcome: "WELCOME TO THE APP", nav: ["HOME","THE SOUNDS","MIXTAPES","PLAYER","CULTURE"], cta:"ENTER THE SOUND ↗", heroDesc:"RAW SOUND. CULTURE WITHOUT BORDERS.", heroButton:"EXPLORE THE MIXTAPES", marquee:"HIP-HOP • DANCEHALL • REGGAETON • R&B • AFROBEATS" }
+  };
+  const applyLanguage = (lang) => {
+    const t = translations[lang] || translations.fr;
+    document.documentElement.lang = lang;
+    document.querySelectorAll(".site-header nav a").forEach((el, i) => { if (t.nav[i]) el.textContent = t.nav[i]; });
+    const cta = document.querySelector(".header-cta");
+    if (cta) cta.innerHTML = '<i class="pulse"></i> ' + t.cta;
+    const heroDesc = document.querySelector(".hero-description");
+    if (heroDesc) heroDesc.textContent = t.heroDesc;
+    const heroButton = document.querySelector(".hero-button");
+    if (heroButton) heroButton.innerHTML = '<span>▶</span> ' + t.heroButton + ' <b>↘</b>';
+    ["welcomeMessage","welcomeMessageRepeat"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = t.welcome; });
+  };
+  languageSelect?.addEventListener("change", () => applyLanguage(languageSelect.value));
+  if (languageSelect) applyLanguage(languageSelect.value);
+
 })();
