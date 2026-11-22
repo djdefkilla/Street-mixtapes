@@ -379,3 +379,62 @@ footer{border-top:2px solid var(--pink);background:linear-gradient(90deg,#080610
 @media(prefers-reduced-motion:reduce){
   .hero-smoke{animation:none!important;opacity:.45}
 }
+
+
+/* ===== VHS SIGNAL INTERFERENCE ON THE HERO BANNER ===== */
+.hero-smoke{display:none!important}
+.hero{isolation:isolate}
+.hero-art{z-index:-2}
+.hero-vignette{z-index:0}
+.hero::before,
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+}
+.hero::before{
+  z-index:1;opacity:.2;mix-blend-mode:screen;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 3px,#dffcff26 4px,#08061012 5px,transparent 7px),
+    linear-gradient(90deg,transparent 0%,#00f5ed12 24%,transparent 42%,#ff18a812 72%,transparent 100%);
+  background-size:100% 9px,180% 100%;
+  animation:vhsScan 7s linear infinite;
+}
+.hero::after{
+  z-index:1;opacity:.34;mix-blend-mode:screen;
+  background:
+    linear-gradient(180deg,transparent 0 18%,#00f5ed22 18.2%,#ffffff12 18.7%,transparent 19.4% 61%,#ff18a82b 61.3%,#ffffff18 62%,transparent 63%),
+    repeating-linear-gradient(0deg,transparent 0 37px,#ffffff0b 38px,transparent 40px);
+  animation:vhsJitter 5.8s steps(1,end) infinite;
+}
+@keyframes vhsScan{
+  0%{background-position:0 0,0 0;transform:translateY(-1%)}
+  100%{background-position:0 180px,100% 0;transform:translateY(1%)}
+}
+@keyframes vhsJitter{
+  0%,82%,100%{transform:translate(0,0);clip-path:inset(0 0 0 0);opacity:.2}
+  83%{transform:translate(-3px,1px);clip-path:inset(18% 0 68% 0);opacity:.8}
+  84%{transform:translate(4px,-1px);clip-path:inset(61% 0 26% 0);opacity:.65}
+  85%{transform:translate(-1px,0);clip-path:inset(0 0 0 0);opacity:.28}
+  92%{transform:translate(2px,0);clip-path:inset(38% 0 52% 0);opacity:.6}
+  93%{transform:translate(0,0);clip-path:inset(0 0 0 0);opacity:.22}
+}
+.hero-topline,.hero-copy,.hero-side-note,.hero-bottom{z-index:2}
+
+/* Cassette body spins with the music; reels keep their own rotation */
+.cassette-shell{transform-style:preserve-3d;backface-visibility:hidden}
+.cassette-shell.spinning{
+  animation:cassetteBodySpin 9s cubic-bezier(.45,.05,.55,.95) infinite;
+  box-shadow:inset 0 2px 5px #fff8,inset 0 -5px 9px #000b,0 12px 28px #000c,0 0 32px #00f5ed55,0 0 42px #ff18a844;
+}
+@keyframes cassetteBodySpin{
+  0%,100%{transform:perspective(1000px) rotateY(-8deg) rotateX(2deg) scale(1)}
+  50%{transform:perspective(1000px) rotateY(8deg) rotateX(-2deg) scale(1.015)}
+}
+@media(max-width:620px){
+  .hero::before{opacity:.23;background-size:100% 8px,180% 100%}
+  .hero::after{opacity:.28}
+  .cassette-shell.spinning{animation-duration:10s}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero::before,.hero::after{animation:none!important}
+  .cassette-shell.spinning{animation:none!important}
+}
