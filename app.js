@@ -1,67 +1,73 @@
-const genreButtons = [...document.querySelectorAll('.genre')];
-const mixCards = [...document.querySelectorAll('.mix')];
-
-genreButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    genreButtons.forEach((item) => item.classList.toggle('active', item === button));
-    const genre = button.dataset.genre;
-    mixCards.forEach((card) => {
-      card.hidden = genre !== 'all' && card.dataset.category !== genre;
+(() => {
+  "use strict";
+  const buttons = document.querySelectorAll(".genre");
+  const cards = document.querySelectorAll(".mix");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const genre = button.dataset.genre || "all";
+      buttons.forEach((item) => item.classList.toggle("active", item === button));
+      cards.forEach((card) => {
+        card.hidden = genre !== "all" && card.dataset.category !== genre;
+      });
     });
-    document.querySelector('#mixes').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
-});
 
-const audio = document.querySelector('#audio');
-const fileInput = document.querySelector('#audioFile');
-const playButton = document.querySelector('#play');
-const trackName = document.querySelector('#track');
-const status = document.querySelector('#status');
-const equalizer = document.querySelector('.equalizer');
+  const audio = document.getElementById("audio");
+  const fileInput = document.getElementById("audioFile");
+  const playButton = document.getElementById("play");
+  const track = document.getElementById("track");
+  const status = document.getElementById("status");
+  const equalizer = document.querySelector(".equalizer");
+  if (!audio || !fileInput || !playButton || !track || !status || !equalizer) return;
 
-function setPlaying(playing) {
-  playButton.innerHTML = playing ? '<span>Ⅱ</span>' : '<span>▶</span>';
-  equalizer.classList.toggle('playing', playing);
-}
-
-fileInput.addEventListener('change', () => {
-  const file = fileInput.files && fileInput.files[0];
-  if (!file) return;
-  if (audio.src) URL.revokeObjectURL(audio.src);
-  audio.src = URL.createObjectURL(file);
-  trackName.textContent = file.name;
-  status.textContent = 'LOCAL FILE LOADED — READY TO PLAY';
-  setPlaying(false);
-});
-
-playButton.addEventListener('click', async () => {
-  if (!audio.src) {
-    status.textContent = 'CHARGE UN FICHIER AUDIO POUR COMMENCER';
-    document.querySelector('.load-audio').focus();
-    return;
+  let currentUrl = "";
+  function updatePlayState(playing) {
+    playButton.textContent = playing ? "Ⅱ" : "▶";
+    equalizer.classList.toggle("playing", playing);
   }
-  if (audio.paused) {
-    try {
-      await audio.play();
-      setPlaying(true);
-      status.textContent = 'NOW PLAYING — FEEL THE VIBE';
-      document.body.classList.add('sound-on');
-    } catch (error) {
-      status.textContent = 'LECTURE IMPOSSIBLE — ESSAIE UN AUTRE FICHIER';
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) return;
+    if (!file.type.startsWith("audio/")) {
+      status.textContent = "CHOISIS UN FICHIER AUDIO";
+      return;
     }
-  } else {
     audio.pause();
-    setPlaying(false);
-    status.textContent = 'PAUSED — TAKE A BREATH';
-    document.body.classList.remove('sound-on');
-  }
-});
+    if (currentUrl) URL.revokeObjectURL(currentUrl);
+    currentUrl = URL.createObjectURL(file);
+    audio.src = currentUrl;
+    track.textContent = file.name;
+    status.textContent = "FICHIER PRÊT — APPUIE SUR PLAY";
+    updatePlayState(false);
+  });
 
-audio.addEventListener('ended', () => {
-  setPlaying(false);
-  status.textContent = 'TAPE FINISHED — REWIND THE VIBE';
-  document.body.classList.remove('sound-on');
-});
-audio.addEventListener('pause', () => {
-  if (audio.ended) setPlaying(false);
-});
+  playButton.addEventListener("click", async () => {
+    if (!audio.src) {
+      status.textContent = "CHARGE UN FICHIER AUDIO D'ABORD";
+      return;
+    }
+    if (audio.paused) {
+      try {
+        await audio.play();
+      } catch (_) {
+        status.textContent = "LECTURE IMPOSSIBLE — ESSAIE UN AUTRE FICHIER";
+      }
+    } else {
+      audio.pause();
+    }
+  });
+  audio.addEventListener("play", () => {
+    updatePlayState(true);
+    status.textContent = "NOW PLAYING";
+  });
+  audio.addEventListener("pause", () => updatePlayState(false));
+  audio.addEventListener("ended", () => {
+    updatePlayState(false);
+    status.textContent = "MIX TERMINÉ";
+  });
+  window.addEventListener("pagehide", () => {
+    audio.pause();
+    if (currentUrl) URL.revokeObjectURL(currentUrl);
+  });
+})();
