@@ -40,6 +40,7 @@
     play.setAttribute("aria-label", playing ? "Mettre en pause" : "Lire");
     equalizer?.classList.toggle("playing", playing);
     cassette?.classList.toggle("spinning", playing);
+    cassette?.classList.toggle("idle-motion", !playing && !playlist.length);
   };
   const loadTrack = (nextIndex, autoplay) => {
     if (!playlist.length) return;
@@ -66,6 +67,7 @@
     status.textContent = "STREET MIXTAPE • ON AIR";
     track.textContent = "STREET MIXTAPE RADIO";
     meta.textContent = "DJ DEFKILLA • CURATED SOUND";
+    cassette?.classList.add("idle-motion");
   }
 
   play.addEventListener("click", () => {
