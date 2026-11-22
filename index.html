@@ -3,102 +3,81 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101010">
-  <meta name="description" content="STREET MIXTAPE — underground sounds, mixtapes and street culture.">
-  <title>STREET MIXTAPE — Tape Culture</title>
+  <meta name="theme-color" content="#090608">
+  <meta name="description" content="STREET MIXTAPE — le son brut, la culture street, les mixtapes sans frontières.">
+  <title>STREET MIXTAPE — No Rules. Just Sound.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="topline"></div>
-  <header>
-    <a class="brand" href="#">STREET<span>·</span>MIXTAPE</a>
-    <nav>
-      <a href="#tape">The tape</a>
-      <a href="#sounds">Sounds</a>
-      <a href="#mixes">Mixtapes</a>
-    </nav>
+  <div class="fx-noise"></div><div class="fx-vignette"></div><div class="laser laser-one"></div><div class="laser laser-two"></div>
+  <header class="site-header">
+    <a class="brand" href="#home"><span class="brand-crown">♛</span> STREET<em>MIXTAPE</em></a>
+    <nav><a class="active" href="#home">Accueil</a><a href="#mixes">Mixtapes</a><a href="#sounds">Styles</a><a href="#player">Écouter</a></nav>
+    <a class="header-tag" href="#player">PRESS PLAY <b>↗</b></a>
   </header>
-
   <main>
-    <section class="hero">
-      <div class="eyebrow">Independent sound system // Est. 2025</div>
-      <h1>NO RULES.<br><em>JUST</em> SOUND.</h1>
-      <div class="hero-bottom">
-        <p>Des mixtapes qui sentent la rue, les sound systems et les nuits sans fin.
-          Hip-hop, dancehall, R&amp;B, reggaeton — press play and feel the culture.</p>
-        <div class="stamp">100% STREET<br>APPROVED</div>
+    <section class="hero" id="home">
+      <div class="wall-tag tag-left">HIP-HOP<br>RAP FR<br>R'N'B</div>
+      <div class="wall-tag tag-right">MIXTAPES<br>FREESTYLES<br>DJ SETS</div>
+      <div class="hero-kicker"><span class="live-dot"></span> UNDERGROUND SOUND SYSTEM <i>•</i> EST. 2025</div>
+      <div class="hero-title-wrap">
+        <div class="crown">♛</div>
+        <h1><span>STREET</span><strong>MIXTAPE</strong></h1>
+        <div class="byline">RAW MUSIC — REAL CULTURE — <b>DJ DEFKILLA</b></div>
       </div>
-    </section>
-
-    <section class="tape-wrap" id="tape">
-      <div class="tape">
-        <div class="tape-label">
-          <div class="eyebrow">Limited bootleg edition · Vol. 001</div>
-          <div class="tape-title">STREET <span>SELECTION</span></div>
-          <div class="tiny">RAW MUSIC FOR REAL PEOPLE — SIDE A / MIXTAPE SERIES</div>
+      <div class="hero-scene">
+        <div class="speaker speaker-left"><div class="speaker-cone"></div><div class="speaker-small"></div></div>
+        <div class="turntable turn-left"><div class="vinyl"><div class="vinyl-label"></div></div><div class="tonearm"></div></div>
+        <div class="cassette">
+          <div class="cassette-top"><span>STREET MIXTAPE</span><small>HIGH BIAS / 90 MIN</small></div>
+          <div class="cassette-window"><div class="tape-reel"></div><div class="tape-strip"></div><div class="tape-reel"></div></div>
+          <div class="cassette-bottom"><span>VOL. 001</span><b>NO RULES. JUST SOUND.</b><span> SIDE A ▸</span></div>
         </div>
-        <div class="reels"><div class="reel"></div><div class="reel"></div></div>
-        <div class="tape-window"></div>
+        <div class="turntable turn-right"><div class="vinyl"><div class="vinyl-label"></div></div><div class="tonearm"></div></div>
+        <div class="speaker speaker-right"><div class="speaker-cone"></div><div class="speaker-small"></div></div>
       </div>
+      <div class="hero-spray">TURN IT<br><b>UP!</b></div>
+      <div class="hero-bottomline"><span>NO COPYRIGHT ON THE VIBE</span><span>VOLUME 001 <b>///</b> THE STREETS ARE LISTENING</span></div>
     </section>
 
-    <section class="section" id="sounds">
-      <div class="section-head">
-        <h2>Pick your <span>sound</span></h2>
-        <div class="tiny">CHOOSE A FREQUENCY</div>
-      </div>
-      <div class="genres">
-        <button class="genre active" data-genre="all">All sounds</button>
-        <button class="genre" data-genre="hip-hop">Hip-hop</button>
-        <button class="genre" data-genre="dancehall">Dancehall</button>
-        <button class="genre" data-genre="reggaeton">Reggaeton</button>
-        <button class="genre" data-genre="r&amp;b">R&amp;B</button>
-        <button class="genre" data-genre="afrobeats">Afrobeats</button>
-      </div>
-    </section>
-
-    <section class="section" id="mixes">
-      <div class="section-head">
-        <h2>Fresh from the <span>streets</span></h2>
-        <div class="tiny">MIXTAPE ARCHIVE / 001</div>
-      </div>
-      <div class="mix-grid">
-        <article class="mix" data-category="hip-hop">
-          <small>01 / HIP-HOP</small><h3>Street tapes vol. 1</h3>
-          <p>Raw bars · Boom bap · New school</p>
-        </article>
-        <article class="mix" data-category="dancehall">
-          <small>02 / DANCEHALL</small><h3>Island fever</h3>
-          <p>Dancehall vibes · Bashment energy</p>
-        </article>
-        <article class="mix" data-category="reggaeton">
-          <small>03 / LATIN CLUB</small><h3>Perreo nights</h3>
-          <p>Reggaeton · Dembow · Latin heat</p>
-        </article>
-      </div>
-
+    <section class="listen-section" id="player">
+      <div class="section-label"><span>01 / THE SOUND</span><b>ÉCOUTER MAINTENANT</b><span>LIVE FROM THE BLOCK</span></div>
       <div class="player">
-        <button class="play" id="play" aria-label="Lire ou mettre en pause">▶</button>
-        <div class="track-info">
-          <strong id="track">The underground is yours</strong>
-          <small id="status">PLAYER READY — ADD YOUR MIX BELOW</small>
-        </div>
-        <label class="tiny file-label" for="audioFile">LOAD AUDIO</label>
-        <input id="audioFile" type="file" accept="audio/*">
+        <div class="player-art"><span>♛</span><b>STREET<br><i>MIXTAPE</i></b><small>DJ DEFKILLA</small></div>
+        <button class="play" id="play" aria-label="Lire ou mettre en pause"><span>▶</span></button>
+        <div class="track-info"><small id="status">PLAYER READY — CHARGE TON SON</small><strong id="track">THE UNDERGROUND IS YOURS</strong><div class="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <label class="load-audio" for="audioFile">＋ CHARGER UN SON</label><input id="audioFile" type="file" accept="audio/*">
       </div>
       <audio id="audio"></audio>
-      <p class="upload-note">Choisis un fichier audio depuis ton appareil pour lancer la lecture.
-        Les mixtapes et liens de streaming pourront être intégrés dans les prochaines étapes.</p>
+      <p class="player-note">Sélectionne un fichier audio sur ton appareil pour le lancer. Le fichier reste sur ton appareil.</p>
+    </section>
+
+    <section class="section sounds-section" id="sounds">
+      <div class="section-heading"><div><span class="section-index">02 / CHOOSE YOUR WEAPON</span><h2>TON <em>STYLE.</em><br>TON <em>SOUND.</em></h2></div><p>Du bitume aux dancefloors.<br>Une seule règle : le son doit parler.</p></div>
+      <div class="genre-grid">
+        <button class="genre genre-hip" data-genre="hip-hop"><span>01</span><b>HIP-HOP</b><small>BOOM BAP / TRAP</small></button>
+        <button class="genre genre-dance" data-genre="dancehall"><span>02</span><b>DANCEHALL</b><small>BASHMENT / REGGAE</small></button>
+        <button class="genre genre-latin" data-genre="reggaeton"><span>03</span><b>REGGAETON</b><small>LATIN / DEMBOW</small></button>
+        <button class="genre genre-rnb" data-genre="r&b"><span>04</span><b>R&amp;B</b><small>SOUL / SLOW JAM</small></button>
+        <button class="genre genre-afro" data-genre="afrobeats"><span>05</span><b>AFROBEATS</b><small>AFRO / AMAPIANO</small></button>
+        <button class="genre genre-all active" data-genre="all"><span>06</span><b>ALL VIBES</b><small>NO LIMITS</small></button>
+      </div>
+    </section>
+
+    <section class="section mixes-section" id="mixes">
+      <div class="section-heading"><div><span class="section-index">03 / FRESH OUT THE BLOCK</span><h2>LES <em>DERNIÈRES</em><br>SORTIES.</h2></div><div class="archive-stamp">THE<br>ARCHIVE<br>♛</div></div>
+      <div class="mix-grid">
+        <article class="mix mix-red" data-category="hip-hop"><div class="mix-number">TAPE Nº 001</div><div class="mix-art"><span>STREET</span><b>MIXTAPE</b><small>DJ DEFKILLA</small></div><div class="mix-meta"><h3>STREET TAPES VOL. 1</h3><p>HIP-HOP • BOOM BAP • NEW SCHOOL</p></div></article>
+        <article class="mix mix-gold" data-category="dancehall"><div class="mix-number">TAPE Nº 002</div><div class="mix-art"><span>ISLAND</span><b>FEVER</b><small>DJ DEFKILLA</small></div><div class="mix-meta"><h3>ISLAND FEVER</h3><p>DANCEHALL • BASHMENT • REGGAE</p></div></article>
+        <article class="mix mix-blue" data-category="reggaeton"><div class="mix-number">TAPE Nº 003</div><div class="mix-art"><span>PERREO</span><b>NIGHTS</b><small>DJ DEFKILLA</small></div><div class="mix-meta"><h3>PERREO NIGHTS</h3><p>REGGAETON • DEMBOW • LATIN HEAT</p></div></article>
+      </div>
+      <div class="archive-footer"><span>MORE MUSIC. LESS TALK.</span><span>STREET MIXTAPE <b>★</b> EST. 2025</span></div>
     </section>
   </main>
-
-  <footer>
-    <div>© STREET MIXTAPE <b>— TAPE CULTURE</b></div>
-    <div>Independent sounds. No boundaries.</div>
-  </footer>
+  <footer><a class="brand" href="#home">STREET<em>MIXTAPE</em></a><span>INDEPENDENT SOUNDS. NO BOUNDARIES.</span><span>© STREET MIXTAPE 2025</span></footer>
   <script src="app.js"></script>
 </body>
 </html>
