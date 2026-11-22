@@ -10,7 +10,7 @@
 
   // Seules les pistes publiées par l'administrateur du site sont listées ici.
   // Les visiteurs ne disposent d'aucun champ d'ajout ou d'envoi de fichiers.
-  const playlist = [];
+  const playlist = [\n    // Exemple à compléter avec les fichiers MP3 publiés dans le dossier audio :\n    // { title: "Street Mix Vol. 1", meta: "Hip-Hop • DJ DEFKILLA", src: "audio/street-mix-vol-1.mp3" }\n  ];
   const audio = document.getElementById("audio");
   const play = document.getElementById("play");
   const prev = document.getElementById("prev");
@@ -50,14 +50,14 @@
     progress.value = 0;
     if (autoplay) audio.play().catch(() => { status.textContent = "APPUYER SUR PLAY POUR ÉCOUTER"; });
   };
-  count.textContent = playlist.length+" MIXTAPE"+(playlist.length>1?"S":"")+" DISPONIBLE"+(playlist.length>1?"S":"");
+  count.textContent = "DJ SELECTS";
   if (playlist.length) {
     [play,prev,next,progress].forEach((el) => { el.disabled = false; });
     loadTrack(0,false);
   } else {
-    status.textContent = "SÉLECTION DJ DEFKILLA — BIENTÔT DISPONIBLE";
-    track.textContent = "LES MIXTAPES ARRIVENT";
-    meta.textContent = "Le lecteur sera alimenté par DJ DEFKILLA";
+    status.textContent = "STREET MIXTAPE • ON AIR";
+    track.textContent = "STREET MIXTAPE RADIO";
+    meta.textContent = "DJ DEFKILLA • CURATED SOUND";
   }
   play.addEventListener("click", () => {
     if (!playlist.length) return;
