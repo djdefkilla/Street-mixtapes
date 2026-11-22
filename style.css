@@ -438,3 +438,7 @@ footer{border-top:2px solid var(--pink);background:linear-gradient(90deg,#080610
   .hero::before,.hero::after{animation:none!important}
   .cassette-shell.spinning{animation:none!important}
 }
+
+/* Gentle display motion while the playlist is still being prepared */
+.cassette-shell.idle-motion{animation:cassetteBodySpin 14s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.cassette-shell.idle-motion{animation:none!important}}
