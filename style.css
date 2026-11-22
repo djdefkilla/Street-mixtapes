@@ -142,3 +142,72 @@ footer{border-top:2px solid var(--pink);background:linear-gradient(90deg,#080610
   .hero-copy{left:4%;bottom:70px;max-width:390px}
   .hero h1{font-size:clamp(66px,10vw,90px)}
 }
+
+
+/* ===== OFFICIAL CASSETTE DECK + RED/BLUE POLICE LIGHTS ===== */
+.player-section{position:relative;isolation:isolate;overflow:hidden}
+.police-flash{position:absolute;z-index:-1;top:115px;bottom:65px;width:13px;opacity:.8;filter:blur(2px);pointer-events:none}
+.flash-left{left:0;background:linear-gradient(180deg,transparent,#ff102b 18%,#ff102b 38%,transparent 52%,#153dff 66%,#153dff 86%,transparent);animation:policeLeft 1.15s steps(1,end) infinite}
+.flash-right{right:0;background:linear-gradient(180deg,transparent,#153dff 18%,#153dff 38%,transparent 52%,#ff102b 66%,#ff102b 86%,transparent);animation:policeRight 1.15s steps(1,end) infinite}
+@keyframes policeLeft{0%,44%{opacity:.12;filter:blur(3px);box-shadow:0 0 8px #ff102b}45%,74%{opacity:1;filter:blur(1px);box-shadow:0 0 22px #ff102b,0 0 48px #ff102b}75%,100%{opacity:.12}}
+@keyframes policeRight{0%,44%{opacity:1;filter:blur(1px);box-shadow:0 0 22px #174cff,0 0 48px #174cff}45%,74%{opacity:.1;filter:blur(3px)}75%,100%{opacity:1;box-shadow:0 0 22px #174cff,0 0 48px #174cff}}
+.cassette-player{max-width:1080px;margin:0 auto;padding:18px;background:linear-gradient(135deg,#21172b,#0a101c 52%,#211020);border:1px solid #5b3b67;box-shadow:0 0 0 4px #0b0812,0 0 35px #ff174b25,0 0 35px #164cff20}
+.cassette-shell{position:relative;max-width:660px;margin:0 auto 18px;padding:17px 22px 14px;border:2px solid #b8b3c4;border-radius:17px;background:linear-gradient(145deg,#e3dce4 0%,#777483 9%,#282532 17%,#16141f 83%,#55515f 94%,#c8c1ce 100%);box-shadow:inset 0 2px 5px #fff8,inset 0 -5px 9px #000b,0 8px 20px #000a,0 0 25px #00f5ed22;color:#f5f0f6}
+.cassette-topline,.cassette-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;font:800 8px monospace;letter-spacing:1px;text-shadow:0 1px 3px #000}
+.cassette-topline{padding-bottom:12px;border-bottom:1px solid #ffffff38}
+.cassette-rec{color:#ff3751;text-shadow:0 0 8px #ff173c;animation:recBlink 1s steps(1,end) infinite}
+@keyframes recBlink{50%{opacity:.25}}
+.cassette-window{height:132px;position:relative;display:flex;align-items:center;justify-content:space-around;margin:13px 0;padding:13px 15%;overflow:hidden;border:5px solid #0b0a10;border-radius:8px;background:linear-gradient(180deg,#05050a,#1c1424 55%,#05050a);box-shadow:inset 0 0 18px #000,0 1px 0 #fff6}
+.reel{width:82px;height:82px;position:relative;z-index:2;border:7px solid #9993a2;border-radius:50%;background:repeating-radial-gradient(circle,#09080d 0 3px,#3a3542 4px 6px);box-shadow:0 0 0 3px #09080d,0 0 14px #00f5ed44}
+.reel:before,.reel:after{content:"";position:absolute;inset:7px;border:2px dashed #b7aebe;border-radius:50%}
+.reel:after{inset:25px;background:var(--pink);border:3px solid #e9dfea;box-shadow:0 0 9px var(--pink)}
+.reel i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(transparent 0 28deg,#ffffff70 29deg 34deg,transparent 35deg 148deg,#ffffff55 149deg 154deg,transparent 155deg 268deg,#ffffff55 269deg 274deg,transparent 275deg);animation:reelSpin 2.5s linear infinite paused}
+.cassette-shell.spinning .reel i{animation-play-state:running}
+@keyframes reelSpin{to{transform:rotate(360deg)}}
+.tape-ribbon{position:absolute;left:25%;right:25%;height:26px;border-top:4px solid #bd9aa9;border-bottom:4px solid #bd9aa9;background:linear-gradient(180deg,#241421,#07060c);box-shadow:0 0 9px #ff18a833}
+.cassette-window-label{position:absolute;bottom:6px;left:13px;right:13px;display:flex;justify-content:space-between;font:800 8px monospace;letter-spacing:2px;color:#d7d0de}
+.cassette-window-label b{color:var(--cyan)}
+.cassette-bottom{padding-top:9px;border-top:1px solid #ffffff38;color:#c8c0cf;font-size:7px}
+.cassette-screws i{position:absolute;width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#eee,#4b4652 65%,#111);box-shadow:0 1px 2px #000}
+.cassette-screws i:nth-child(1){top:8px;left:8px}.cassette-screws i:nth-child(2){top:8px;right:8px}.cassette-screws i:nth-child(3){bottom:8px;left:8px}.cassette-screws i:nth-child(4){bottom:8px;right:8px}
+.cassette-console{max-width:660px;margin:auto;padding:17px 20px;background:linear-gradient(120deg,#0b0a14,#101827 50%,#180d1d);border:1px solid #4c3a59;box-shadow:inset 0 0 20px #0008}
+.cassette-console .player-status{min-height:22px;flex-wrap:wrap}
+.cassette-console .track-line{align-items:center;min-height:78px}
+.cassette-console .track-line h2{font-size:clamp(22px,4vw,34px);overflow-wrap:anywhere}
+.cassette-console #trackMeta{margin:5px 0 0;font:9px monospace;color:#9f96aa}
+.cassette-console .equalizer{flex-shrink:0}
+.cassette-console .player-controls{gap:10px}
+.transport{width:37px;height:37px;border:1px solid #00e8ed;background:#0b1824;color:#00f5ed;font-size:12px;cursor:pointer;box-shadow:0 0 12px #00f5ed22}
+.transport:disabled,.play:disabled{opacity:.4;cursor:not-allowed;filter:grayscale(1)}
+.cassette-console .play{width:48px;height:48px}
+.cassette-console .local-note{margin-left:auto;color:var(--acid)}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:16px;font:9px monospace;color:#b8afc3}
+.progress-row input{flex:1;min-width:0;accent-color:var(--pink);cursor:pointer}
+.progress-row input:disabled{opacity:.35;cursor:not-allowed}
+.cassette-footer-note{margin-top:14px;padding-top:10px;border-top:1px solid #3c3047;text-align:center;font:8px/1.5 monospace;letter-spacing:1px;color:#8f849b}
+@media(max-width:620px){
+ .player-section{padding:42px 4%}
+ .cassette-player{padding:10px 8px;box-shadow:0 0 0 2px #0b0812,0 0 22px #ff174b22}
+ .cassette-shell{padding:12px 11px 10px;border-radius:12px;margin-bottom:12px}
+ .cassette-topline{font-size:6px;letter-spacing:.35px;padding-bottom:9px}
+ .cassette-window{height:105px;margin:10px 0;padding:8px 12%}
+ .reel{width:64px;height:64px;border-width:6px}
+ .reel:after{inset:19px}
+ .tape-ribbon{height:19px;left:24%;right:24%}
+ .cassette-bottom{font-size:6px;letter-spacing:.5px}
+ .cassette-console{padding:13px 11px}
+ .cassette-console .player-status{font-size:7px;letter-spacing:.4px}
+ .cassette-console .live-label{margin-left:auto}
+ .cassette-console .track-line{min-height:70px;padding:12px 0}
+ .cassette-console .track-line h2{font-size:22px;line-height:1.05}
+ .cassette-console #trackMeta{font-size:8px}
+ .cassette-console .equalizer{gap:2px}
+ .cassette-console .equalizer i{width:3px}
+ .transport{width:32px;height:32px;font-size:10px}
+ .cassette-console .play{width:43px;height:43px}
+ .cassette-console .local-note{width:100%;margin:0;text-align:center;font-size:7px}
+ .progress-row{margin-top:12px}
+ .cassette-footer-note{font-size:7px}
+ .police-flash{width:7px;top:105px;bottom:45px}
+}
+@media(prefers-reduced-motion:reduce){.police-flash,.cassette-rec,.reel i{animation:none!important}}
