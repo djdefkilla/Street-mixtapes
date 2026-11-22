@@ -442,3 +442,55 @@ footer{border-top:2px solid var(--pink);background:linear-gradient(90deg,#080610
 /* Gentle display motion while the playlist is still being prepared */
 .cassette-shell.idle-motion{animation:cassetteBodySpin 14s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){.cassette-shell.idle-motion{animation:none!important}}
+
+
+/* FINAL OVERRIDE: obvious VHS noise directly over the banner artwork */
+.hero{position:relative;isolation:isolate}
+.hero-art{z-index:0!important}
+.hero-vignette{z-index:1!important}
+.hero::before{
+  z-index:2!important;opacity:.55!important;mix-blend-mode:screen!important;
+  background:
+   repeating-linear-gradient(0deg,transparent 0 2px,#d8ffff40 3px,transparent 4px 6px),
+   linear-gradient(90deg,#00f5ed20 0%,transparent 22%,#ff18a820 52%,transparent 74%,#00f5ed20 100%)!important;
+  background-size:100% 7px,200% 100%!important;
+  animation:bannerVhsLines 1.8s linear infinite!important;
+}
+.hero::after{
+  z-index:2!important;opacity:.7!important;mix-blend-mode:screen!important;
+  background:
+   linear-gradient(180deg,transparent 0 13%,#00f5ed99 13.2%,#fff8 13.6%,transparent 14.5% 43%,#ff18a899 43.2%,#fff7 43.7%,transparent 45% 78%,#00f5ed77 78.2%,transparent 79%),
+   repeating-linear-gradient(0deg,transparent 0 23px,#ffffff20 24px,transparent 26px)!important;
+  animation:bannerVhsBurst 2.7s steps(1,end) infinite!important;
+}
+.hero-topline,.hero-copy,.hero-side-note,.hero-bottom{z-index:3!important}
+@keyframes bannerVhsLines{from{background-position:0 0,0 0}to{background-position:0 120px,100% 0}}
+@keyframes bannerVhsBurst{
+  0%,67%,100%{transform:translateX(0);clip-path:inset(0);opacity:.12}
+  68%{transform:translateX(-7px);clip-path:inset(12% 0 76%);opacity:.95}
+  69%{transform:translateX(8px);clip-path:inset(39% 0 48%);opacity:.85}
+  70%{transform:translateX(-3px);clip-path:inset(0);opacity:.42}
+  88%{transform:translateX(5px);clip-path:inset(70% 0 12%);opacity:.9}
+  89%{transform:translateX(0);clip-path:inset(0);opacity:.18}
+}
+
+/* Make the cassette visibly rotate even before audio is uploaded */
+.cassette-shell.idle-motion{animation:fullCassetteSpin 12s linear infinite!important;transform-origin:50% 50%}
+.cassette-shell.idle-motion .reel i{animation:reelSpin 2.5s linear infinite!important}
+.cassette-shell.spinning{animation:fullCassetteSpin 8s linear infinite!important;transform-origin:50% 50%}
+.cassette-shell.spinning .reel i{animation:reelSpin 1.6s linear infinite!important}
+@keyframes fullCassetteSpin{
+  from{transform:perspective(1000px) rotateY(0deg) rotateZ(0deg)}
+  to{transform:perspective(1000px) rotateY(360deg) rotateZ(0deg)}
+}
+@media(max-width:620px){
+ .cassette-shell.idle-motion{animation-duration:15s!important}
+ .cassette-shell.spinning{animation-duration:10s!important}
+ .hero::before{opacity:.48!important}
+ .hero::after{opacity:.6!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero::before,.hero::after{animation:none!important}
+ .cassette-shell.idle-motion,.cassette-shell.spinning{animation:none!important}
+ .cassette-shell.idle-motion .reel i,.cassette-shell.spinning .reel i{animation:none!important}
+}
