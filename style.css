@@ -78,3 +78,67 @@ footer{border-top:2px solid var(--pink);background:linear-gradient(90deg,#080610
  .deck-disc{width:48px;height:48px}
  .deck-disc i{inset:15px}
 }
+
+
+/* MOBILE HERO COMPOSITION FIX — let the supplied artwork speak */
+@media(max-width:620px){
+  .hero{
+    height:690px;
+    min-height:690px;
+    max-height:none;
+    background:linear-gradient(180deg,#080610 0%,#10091a 56%,#080610 100%);
+  }
+  .hero-art{
+    inset:0 0 auto;
+    height:58vw;
+    min-height:190px;
+    max-height:270px;
+    background-size:100% auto;
+    background-position:center top;
+    background-repeat:no-repeat;
+    filter:saturate(1.12) contrast(1.04);
+  }
+  .hero-vignette{
+    inset:0 0 auto;
+    height:58vw;
+    min-height:190px;
+    max-height:270px;
+    background:linear-gradient(0deg,#080610 0%,transparent 34%,#08061012 100%);
+  }
+  .hero-topline{
+    top:calc(min(58vw,270px) + 10px);
+    left:4%;
+    right:4%;
+    width:auto;
+    padding:8px 9px;
+    background:#151020;
+    border:1px solid #00f5ed66;
+    font-size:6px;
+    letter-spacing:.45px;
+  }
+  .hero-copy{
+    left:5%;
+    right:5%;
+    bottom:82px;
+    top:auto;
+    max-width:none;
+    padding:18px 16px 17px;
+    background:linear-gradient(110deg,#171020f5,#0b0913f2);
+    border:1px solid #ff18a866;
+    border-left:3px solid var(--pink);
+    box-shadow:0 0 26px #ff18a822,7px 7px 0 #020106;
+    transform:none;
+  }
+  .hero-copy .eyebrow{font-size:8px;margin:0 0 10px;color:var(--acid)}
+  .hero h1{display:none}
+  .hero-stamp{display:none}
+  .hero-description{font-size:9px;line-height:1.6;letter-spacing:1.25px;margin:0 0 15px}
+  .hero-button{width:100%;justify-content:center;padding:14px 10px;font-size:10px}
+  .hero-side-note{display:none}
+  .hero-bottom{left:4%;right:4%;bottom:16px;padding:8px 9px;font-size:6px;letter-spacing:.3px}
+  .hero-bottom .sound-bars{height:16px}
+}
+@media(min-width:621px) and (max-width:850px){
+  .hero-copy{left:4%;bottom:70px;max-width:390px}
+  .hero h1{font-size:clamp(66px,10vw,90px)}
+}
