@@ -1,13 +1,14 @@
 (() => {
   "use strict";
-  const buttons = document.querySelectorAll(".genre");
-  const cards = document.querySelectorAll(".mix");
-  buttons.forEach((button) => {
+  const genreButtons = [...document.querySelectorAll(".genre")];
+  const mixes = [...document.querySelectorAll(".mix")];
+
+  genreButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const genre = button.dataset.genre || "all";
-      buttons.forEach((item) => item.classList.toggle("active", item === button));
-      cards.forEach((card) => {
-        card.hidden = genre !== "all" && card.dataset.category !== genre;
+      genreButtons.forEach((item) => item.classList.toggle("active", item === button));
+      mixes.forEach((mix) => {
+        mix.hidden = genre !== "all" && mix.dataset.category !== genre;
       });
     });
   });
@@ -21,30 +22,33 @@
   if (!audio || !fileInput || !playButton || !track || !status || !equalizer) return;
 
   let currentUrl = "";
-  function updatePlayState(playing) {
+  const setPlaying = (playing) => {
     playButton.textContent = playing ? "Ⅱ" : "▶";
+    playButton.setAttribute("aria-label", playing ? "Mettre en pause" : "Lire");
     equalizer.classList.toggle("playing", playing);
-  }
+  };
 
   fileInput.addEventListener("change", () => {
     const file = fileInput.files && fileInput.files[0];
     if (!file) return;
-    if (!file.type.startsWith("audio/")) {
-      status.textContent = "CHOISIS UN FICHIER AUDIO";
+    if (file.type && !file.type.startsWith("audio/")) {
+      status.textContent = "FORMAT NON AUDIO — CHOISIS UN AUTRE FICHIER";
+      fileInput.value = "";
       return;
     }
     audio.pause();
     if (currentUrl) URL.revokeObjectURL(currentUrl);
     currentUrl = URL.createObjectURL(file);
     audio.src = currentUrl;
-    track.textContent = file.name;
+    track.textContent = file.name.replace(/\.[^.]+$/, "");
     status.textContent = "FICHIER PRÊT — APPUIE SUR PLAY";
-    updatePlayState(false);
+    setPlaying(false);
   });
 
   playButton.addEventListener("click", async () => {
     if (!audio.src) {
       status.textContent = "CHARGE UN FICHIER AUDIO D'ABORD";
+      fileInput.click();
       return;
     }
     if (audio.paused) {
@@ -57,14 +61,19 @@
       audio.pause();
     }
   });
+
   audio.addEventListener("play", () => {
-    updatePlayState(true);
+    setPlaying(true);
     status.textContent = "NOW PLAYING";
   });
-  audio.addEventListener("pause", () => updatePlayState(false));
+  audio.addEventListener("pause", () => setPlaying(false));
   audio.addEventListener("ended", () => {
-    updatePlayState(false);
+    setPlaying(false);
     status.textContent = "MIX TERMINÉ";
+  });
+  audio.addEventListener("error", () => {
+    setPlaying(false);
+    status.textContent = "FICHIER ILLISIBLE — ESSAIE UN AUTRE FORMAT";
   });
   window.addEventListener("pagehide", () => {
     audio.pause();
