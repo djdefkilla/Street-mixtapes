@@ -579,3 +579,49 @@ footer{border-top:2px solid var(--pink);background:linear-gradient(90deg,#080610
  .welcome-marquee-track{font-size:11px;padding:12px 16px}
 }
 @media(prefers-reduced-motion:reduce){.welcome-marquee-track{animation:none;justify-content:center;white-space:normal}}
+
+
+/* Rotating promo carousel between welcome ticker and cassette deck */
+.promo-zone{width:min(100% - 48px,1050px);margin:0 auto 34px;position:relative}
+.promo-heading{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:0 0 10px;font-family:monospace}
+.promo-kicker{color:var(--cyan);font-size:9px;letter-spacing:2px;font-weight:800}
+.promo-heading-title{font-size:clamp(18px,3vw,25px);font-weight:1000;font-style:italic;letter-spacing:-1px}
+.promo-heading-title em{color:var(--pink);font-style:normal}
+.promo-counter{color:#aaa2b5;font-size:9px;letter-spacing:1px}
+.promo-window{overflow:hidden;border:1px solid #49334f;background:#0c0912;box-shadow:0 0 24px #ff18a81b,0 0 30px #00f5ed0c}
+.promo-track{display:flex;width:300%;animation:promoCarousel 21s infinite cubic-bezier(.7,0,.3,1)}
+.promo-window:hover .promo-track{animation-play-state:paused}
+.promo-slide{position:relative;isolation:isolate;overflow:hidden;display:flex;flex:0 0 33.3333%;min-height:190px;flex-direction:column;justify-content:center;gap:8px;padding:25px 7%;color:#fff;text-decoration:none}
+.promo-slide:before,.promo-slide:after{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none}
+.promo-slide:before{opacity:.72;background:repeating-linear-gradient(135deg,transparent 0 13px,#ffffff0b 14px 16px),radial-gradient(ellipse at 78% 48%,#00f5ed66,transparent 42%)}
+.promo-slide:after{inset:auto -5% -70% 48%;height:160%;border:2px solid #ffffff30;border-radius:50%;transform:rotate(-12deg);box-shadow:0 0 0 18px #ffffff09,0 0 0 38px #ffffff07}
+.promo-slide-one{background:linear-gradient(110deg,#210d27,#5b124b 50%,#111526)}
+.promo-slide-two{background:linear-gradient(110deg,#10182a,#173c56 50%,#25102d)}
+.promo-slide-three{background:linear-gradient(110deg,#171c0b,#435313 50%,#211126)}
+.promo-tag{font:800 9px monospace;letter-spacing:2px;color:var(--acid)}
+.promo-slide strong{font-size:clamp(26px,5vw,48px);line-height:.86;font-weight:1000;font-style:italic;letter-spacing:-2px;text-shadow:3px 3px 0 #0008}
+.promo-slide strong em{color:var(--cyan);font-style:normal}
+.promo-slide-two strong em{color:#ff73c9}
+.promo-slide-three strong em{color:var(--acid)}
+.promo-slide small{font:800 9px monospace;letter-spacing:1.5px;color:#e3dce9}
+.promo-sticker{position:absolute;right:8%;top:50%;transform:translateY(-50%) rotate(9deg);display:grid;place-content:center;width:84px;height:84px;border-radius:50%;background:var(--pink);color:white;text-align:center;font:1000 12px/1.05 Arial,sans-serif;box-shadow:0 0 22px #ff18a877;border:2px dashed #fff9}
+.promo-slide-two .promo-sticker{background:var(--cyan);color:#090711;box-shadow:0 0 22px #00f5ed77}
+.promo-slide-three .promo-sticker{background:var(--acid);color:#090711;box-shadow:0 0 22px #b9ff3677}
+.promo-footer{display:flex;justify-content:space-between;gap:12px;padding:9px 2px;color:#8d8498;font:800 8px monospace;letter-spacing:1.3px}
+@keyframes promoCarousel{
+  0%,27%{transform:translateX(0)}
+  33%,60%{transform:translateX(-33.3333%)}
+  66%,93%{transform:translateX(-66.6666%)}
+  100%{transform:translateX(0)}
+}
+@media(max-width:620px){
+ .promo-zone{width:calc(100% - 28px);margin-bottom:25px}
+ .promo-heading{align-items:start;flex-direction:column;gap:4px}
+ .promo-counter{display:none}
+ .promo-slide{min-height:155px;padding:19px 6%}
+ .promo-slide strong{font-size:clamp(25px,8vw,38px)}
+ .promo-slide small{font-size:7px;letter-spacing:1px;max-width:68%}
+ .promo-sticker{width:65px;height:65px;right:5%;font-size:10px}
+ .promo-footer{font-size:7px;letter-spacing:.6px}
+}
+@media(prefers-reduced-motion:reduce){.promo-track{animation:none;transform:none}.promo-slide:not(:first-child){display:none}}
